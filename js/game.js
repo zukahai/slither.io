@@ -3,6 +3,8 @@ game_W = 0, game_H = 0;
 var bg_im = new Image();
 bg_im.src = "images/Map.png";
 SPEED = 1;
+MaxSpeed = 0;
+chX = chY = 0;
 
 Xfocus = Yfocus = 0;
 
@@ -22,9 +24,29 @@ class game {
         this.loop();
 
         this.listenMouse();
-        this.listenKeyboard();
+        this.listenTouch();
     }
 
+    listenTouch() {
+        document.addEventListener("touchmove", evt => {
+            var x = evt.touches[0].pageY;
+            var y = evt.touches[0].pageX;
+            chX = (x - game_W / 2) / 15;
+            chY = (y - game_H / 2) / 15;
+            console.log(x, ' ', y);
+        })
+
+        document.addEventListener("touchstart", evt => {
+            var x = evt.touches[0].pageY;
+            var y = evt.touches[0].pageX;
+            chX = (x - game_W / 2) / 15;
+            chY = (y - game_H / 2) / 15;
+        })
+
+        document.addEventListener("touchend", evt => { 
+            
+        })
+    }
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
@@ -35,41 +57,13 @@ class game {
         document.addEventListener("mousemove", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            chX = (x - game_W / 2) / 15;
+            chY = (y - game_H / 2) / 15;
         })
 
         document.addEventListener("mouseup", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
-        })
-    }
-
-    listenKeyboard() {
-        document.addEventListener("keydown", key => {
-            switch(key.keyCode) {
-                case 37:
-                case 65:
-                    // console.log("Left");
-                    Xfocus -= SPEED;
-                    break;
-                
-                case 38:
-                case 87:
-                    // console.log("Top");
-                    Yfocus -= SPEED;
-                    break;
-
-                case 39:
-                case 68:
-                    // console.log("Right");
-                    Xfocus += SPEED;
-                    break;
-
-                case 40:
-                case 83:
-                    // console.log("Bottom");
-                    Yfocus += SPEED;
-                    break;
-            }
         })
     }
 
@@ -81,13 +75,24 @@ class game {
 
     update() {
         this.render();
+        if (chX > MaxSpeed)
+            chX = MaxSpeed;
+        if (chY > MaxSpeed)
+            chY = MaxSpeed;
+        if (chX < -MaxSpeed)
+            chX = -MaxSpeed;
+        if (chY < -MaxSpeed)
+            chY = -MaxSpeed;
+
+        Xfocus += chX;
+        Yfocus += chY;
         if (Xfocus < 0)
             Xfocus = bg_im.width / 2 + 22;
         if (Xfocus > bg_im.width / 2 + 22)
             Xfocus = 0;
         if (Yfocus < 0)
-            Yfocus = bg_im.height / 2 + 50;
-        if (Yfocus > bg_im.height / 2 + 11)
+            Yfocus = bg_im.height / 2 + 60;
+        if (Yfocus > bg_im.height / 2 + 60)
             Yfocus = 0;
     }
 
@@ -100,6 +105,7 @@ class game {
             game_H = this.canvas.height;
             SPEED = this.getSize() / 7;
             SPEED = 1;
+            MaxSpeed = this.getSize() / 6;
         }
     }
 
