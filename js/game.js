@@ -33,7 +33,6 @@ class game {
             var y = evt.touches[0].pageX;
             chX = (x - game_W / 2) / 15;
             chY = (y - game_H / 2) / 15;
-            console.log(x, ' ', y);
         })
 
         document.addEventListener("touchstart", evt => {
