@@ -2,6 +2,9 @@ game_W = 0, game_H = 0;
 
 var bg_im = new Image();
 bg_im.src = "images/Map.png";
+SPEED = 1;
+
+Xfocus = Yfocus = 0;
 
 class game {
     constructor() {
@@ -19,6 +22,7 @@ class game {
         this.loop();
 
         this.listenMouse();
+        this.listenKeyboard();
     }
 
 
@@ -39,14 +43,52 @@ class game {
         })
     }
 
+    listenKeyboard() {
+        document.addEventListener("keydown", key => {
+            switch(key.keyCode) {
+                case 37:
+                case 65:
+                    // console.log("Left");
+                    Xfocus -= SPEED;
+                    break;
+                
+                case 38:
+                case 87:
+                    // console.log("Top");
+                    Yfocus -= SPEED;
+                    break;
+
+                case 39:
+                case 68:
+                    // console.log("Right");
+                    Xfocus += SPEED;
+                    break;
+
+                case 40:
+                case 83:
+                    // console.log("Bottom");
+                    Yfocus += SPEED;
+                    break;
+            }
+        })
+    }
+
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 40);
+        setTimeout(() => this.loop(), 30);
     }
 
     update() {
         this.render();
+        if (Xfocus < 0)
+            Xfocus = bg_im.width / 2 + 22;
+        if (Xfocus > bg_im.width / 2 + 22)
+            Xfocus = 0;
+        if (Yfocus < 0)
+            Yfocus = bg_im.height / 2 + 50;
+        if (Yfocus > bg_im.height / 2 + 11)
+            Yfocus = 0;
     }
 
  
@@ -56,6 +98,8 @@ class game {
             this.canvas.height = document.documentElement.clientHeight;
             game_W = this.canvas.width;
             game_H = this.canvas.height;
+            SPEED = this.getSize() / 7;
+            SPEED = 1;
         }
     }
 
@@ -65,11 +109,10 @@ class game {
 
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
-        this.context.fillStyle = '#000000';
-        this.context.fillRect(0 , 0, game_W, game_H);
+        this.context.drawImage(bg_im, Xfocus, Yfocus, game_W, game_H, 0, 0, game_W, game_H);
     }
 
-    getWidth() {
+    getSize() {
         var area = game_W * game_H;
         return Math.sqrt(area / 300);
     }
