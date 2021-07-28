@@ -29,16 +29,15 @@ class game {
 
     listenTouch() {
         document.addEventListener("touchmove", evt => {
-            var x = evt.touches[0].pageY;
-            var y = evt.touches[0].pageX;
-            console.log(x, ' ', y);
+            var y = evt.touches[0].pageY;
+            var x = evt.touches[0].pageX;
             chX = (x - game_W / 2) / 15;
             chY = (y - game_H / 2) / 15;
         })
 
         document.addEventListener("touchstart", evt => {
-            var x = evt.touches[0].pageY;
-            var y = evt.touches[0].pageX;
+            var y = evt.touches[0].pageY;
+            var x = evt.touches[0].pageX;
             chX = (x - game_W / 2) / 15;
             chY = (y - game_H / 2) / 15;
         })
