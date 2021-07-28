@@ -74,6 +74,11 @@ class game {
 
     update() {
         this.render();
+        while (Math.abs(chY) < MaxSpeed && Math.abs(chY) < MaxSpeed && chY * chX != 0) {
+            chX *= 1.1;
+            chY *= 1.1;
+            console.log(chY);
+        }
         if (chX > MaxSpeed)
             chX = MaxSpeed;
         if (chY > MaxSpeed)
@@ -104,7 +109,7 @@ class game {
             game_H = this.canvas.height;
             SPEED = this.getSize() / 7;
             SPEED = 1;
-            MaxSpeed = this.getSize() / 6;
+            MaxSpeed = this.getSize() / 7;
         }
     }
 
