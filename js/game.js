@@ -1,7 +1,7 @@
 game_W = 0, game_H = 0;
 
 var bg_im = new Image();
-bg_im.src = "images/Map.png";
+bg_im.src = "images/Map2.png";
 SPEED = 1;
 MaxSpeed = 0;
 chX = chY = 0;
@@ -109,7 +109,7 @@ class game {
             game_H = this.canvas.height;
             SPEED = this.getSize() / 7;
             SPEED = 1;
-            MaxSpeed = this.getSize() / 7;
+            MaxSpeed = this.getSize() / 10;
         }
     }
 
