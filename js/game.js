@@ -113,6 +113,10 @@ class game {
             SPEED = this.getSize() / 7;
             SPEED = 1;
             MaxSpeed = this.getSize() / 7;
+            if (mySnake.v != null) {
+                mySnake.v[0].x = XX + game_W / 2;
+                mySnake.v[0].y = YY + game_H / 2;
+            }
         }
     }
 
