@@ -5,6 +5,7 @@ bg_im.src = "images/Map2.png";
 SPEED = 1;
 MaxSpeed = 0;
 chX = chY = 0;
+mySnake = 0;
 
 Xfocus = Yfocus = 0;
 
@@ -21,6 +22,8 @@ class game {
         document.body.appendChild(this.canvas);
 
         this.render();
+
+        mySnake = new snake(this);
         this.loop();
 
         this.listenMouse();
@@ -74,19 +77,14 @@ class game {
 
     update() {
         this.render();
-        while (Math.abs(chY) < MaxSpeed && Math.abs(chY) < MaxSpeed && chY * chX != 0) {
+        while (Math.abs(chY) * Math.abs(chY) + Math.abs(chX) * Math.abs(chX) > MaxSpeed * MaxSpeed && chY * chX != 0) {
+            chX /= 1.1;
+            chY /= 1.1;
+        }
+        while (Math.abs(chY) * Math.abs(chY) + Math.abs(chX) * Math.abs(chX) < MaxSpeed * MaxSpeed && chY * chX != 0) {
             chX *= 1.1;
             chY *= 1.1;
-            console.log(chY);
         }
-        if (chX > MaxSpeed)
-            chX = MaxSpeed;
-        if (chY > MaxSpeed)
-            chY = MaxSpeed;
-        if (chX < -MaxSpeed)
-            chX = -MaxSpeed;
-        if (chY < -MaxSpeed)
-            chY = -MaxSpeed;
 
         Xfocus += chX;
         Yfocus += chY;
@@ -98,6 +96,7 @@ class game {
             Yfocus = bg_im.height / 2 + 60;
         if (Yfocus > bg_im.height / 2 + 60)
             Yfocus = 0;
+        mySnake.angle = this.getAngle(chX, chY);
     }
 
  
@@ -109,12 +108,13 @@ class game {
             game_H = this.canvas.height;
             SPEED = this.getSize() / 7;
             SPEED = 1;
-            MaxSpeed = this.getSize() / 10;
+            MaxSpeed = this.getSize() / 7;
         }
     }
 
     draw() {
         this.clearScreen();
+        mySnake.draw();
     }
 
     clearScreen() {
@@ -125,6 +125,14 @@ class game {
     getSize() {
         var area = game_W * game_H;
         return Math.sqrt(area / 300);
+    }
+
+    getAngle(a, b){
+        let c = Math.sqrt(a * a + b * b);
+        let al = Math.acos(a / c);
+        if (chY < 0)
+            al += 2 * (Math.PI - al);
+        return al;
     }
 }
 
