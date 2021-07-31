@@ -27,7 +27,7 @@ class snake{
         this.v[0].y += this.dy * this.speed;
 
         for (let i = 1; i < this.v.length; i++) {
-            if (this.range(this.v[i], this.v[i - 1]) > this.size / 3 || true) {
+            if (this.range(this.v[i], this.v[i - 1]) > this.size / 4) {
                 this.v[i].x = (this.v[i].x + this.v[i - 1].x) / 2;
                 this.v[i].y = (this.v[i].y + this.v[i - 1].y) / 2;
             }
