@@ -44,10 +44,11 @@ class game {
             var x = evt.touches[0].pageX;
             chX = (x - game_W / 2) / 15;
             chY = (y - game_H / 2) / 15;
+            mySnake.speed = 2;
         })
 
         document.addEventListener("touchend", evt => { 
-            
+            mySnake.speed = 1;
         })
     }
 
@@ -55,6 +56,7 @@ class game {
         document.addEventListener("mousedown", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            mySnake.speed = 2;
         })
 
         document.addEventListener("mousemove", evt => {
@@ -67,6 +69,7 @@ class game {
         document.addEventListener("mouseup", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            mySnake.speed = 1;
         })
     }
 
@@ -87,8 +90,8 @@ class game {
             chY *= 1.1;
         }
 
-        Xfocus += 1.5 * chX;
-        Yfocus += 1.5 * chY;
+        Xfocus += 1.5 * chX * mySnake.speed;
+        Yfocus += 1.5 * chY * mySnake.speed;
         if (Xfocus < 0)
             Xfocus = bg_im.width / 2 + 22;
         if (Xfocus > bg_im.width / 2 + 22)
@@ -99,8 +102,8 @@ class game {
             Yfocus = 0;
         mySnake.dx = chX;
         mySnake.dy = chY;
-        XX += chX;
-        YY += chY;
+        XX += chX * mySnake.speed;
+        YY += chY * mySnake.speed;
     }
 
  

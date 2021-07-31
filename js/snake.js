@@ -11,6 +11,7 @@ class snake{
     }
 
     init() {
+        this.speed = 1;
         this.size = this.game.getSize() * 1;
         this.angle = 0;
         this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
@@ -22,8 +23,8 @@ class snake{
     }
 
     update() {
-        this.v[0].x += this.dx;
-        this.v[0].y += this.dy;
+        this.v[0].x += this.dx * this.speed;
+        this.v[0].y += this.dy * this.speed;
 
         for (let i = 1; i < this.v.length; i++) {
             if (this.range(this.v[i], this.v[i - 1]) > this.size / 3 || true) {
