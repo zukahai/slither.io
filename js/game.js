@@ -8,6 +8,7 @@ chX = chY = 0;
 mySnake = 0;
 
 Xfocus = Yfocus = 0;
+XX = 0, YY = 0;
 
 class game {
     constructor() {
@@ -86,8 +87,8 @@ class game {
             chY *= 1.1;
         }
 
-        Xfocus += chX;
-        Yfocus += chY;
+        Xfocus += 1.5 * chX;
+        Yfocus += 1.5 * chY;
         if (Xfocus < 0)
             Xfocus = bg_im.width / 2 + 22;
         if (Xfocus > bg_im.width / 2 + 22)
@@ -96,7 +97,10 @@ class game {
             Yfocus = bg_im.height / 2 + 60;
         if (Yfocus > bg_im.height / 2 + 60)
             Yfocus = 0;
-        mySnake.angle = this.getAngle(chX, chY);
+        mySnake.dx = chX;
+        mySnake.dy = chY;
+        XX += chX;
+        YY += chY;
     }
 
  
@@ -119,20 +123,12 @@ class game {
 
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
-        this.context.drawImage(bg_im, Xfocus, Yfocus, game_W, game_H, 0, 0, game_W, game_H);
+        this.context.drawImage(bg_im, Xfocus, Yfocus, 1.5 * game_W, 1.5 * game_H, 0, 0, game_W, game_H);
     }
 
     getSize() {
         var area = game_W * game_H;
         return Math.sqrt(area / 300);
-    }
-
-    getAngle(a, b){
-        let c = Math.sqrt(a * a + b * b);
-        let al = Math.acos(a / c);
-        if (chY < 0)
-            al += 2 * (Math.PI - al);
-        return al;
     }
 }
 
