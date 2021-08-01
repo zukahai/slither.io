@@ -150,7 +150,7 @@ class game {
             return;
         for (let i = 0; i < mySnake.length; i++)
             for (let j = 0; j < FOOD.length; j++) {
-                if ((mySnake[i].v[0].x - FOOD[j].x) * (mySnake[i].v[0].x - FOOD[j].x) + (mySnake[i].v[0].y - FOOD[j].y) * (mySnake[i].v[0].y - FOOD[j].y) < 2.5 * mySnake[i].size * mySnake[i].size) {
+                if ((mySnake[i].v[0].x - FOOD[j].x) * (mySnake[i].v[0].x - FOOD[j].x) + (mySnake[i].v[0].y - FOOD[j].y) * (mySnake[i].v[0].y - FOOD[j].y) < 1.5 * mySnake[i].size * mySnake[i].size) {
                     mySnake[i].score += Math.floor(FOOD[j].size);
                     FOOD[j] = new food(this, this.getSize() / (5 + Math.random() * 10), (Math.random() - Math.random()) * 5000 + XX, (Math.random() - Math.random()) * 5000 + YY);
                 }
@@ -212,7 +212,7 @@ class game {
     drawScore() {
         this.context.font = this.getSize() / 1.5 + 'px Arial Black';
         this.context.fillStyle = "#FF00CC";
-        this.context.fillText("Score: " + Math.floor(mySnake[0].score), this.getSize(), this.getSize());
+        this.context.fillText("Score: " + Math.floor(mySnake[0].score), this.getSize() / 3, this.getSize());
     }
 
     clearScreen() {
