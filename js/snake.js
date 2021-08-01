@@ -11,23 +11,36 @@ class snake{
     }
 
     init() {
+        this.score = 1000;
         this.speed = 1;
         this.size = this.game.getSize() * 1;
         this.angle = 0;
         this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
         this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
         this.v = [];
-        for (let i = 0; i < 100; i++) 
+        for (let i = 0; i < 50; i++) 
             this.v[i] = {x : game_W / 2, y : game_H / 2};
-        
     }
 
     update() {
+        if (this.speed == 2)
+            this.score--;
+        let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
+        this.size = this.game.getSize() / 2 * csUp;
+        let N = 2 * Math.floor(50 * csUp);
+        console.log(this.v.length);
+        if (N > this.v.length) {
+            this.v[this.v.length] = {x : this.v[this.v.length - 1].x, y : this.v[this.v.length - 1].y};
+        } else
+            this.v.slice(N);
+        
         this.v[0].x += this.dx * this.speed;
         this.v[0].y += this.dy * this.speed;
 
         for (let i = 1; i < this.v.length; i++) {
-            if (this.range(this.v[i], this.v[i - 1]) > this.size / 4) {
+            if (this.range(this.v[i], this.v[i - 1]) > this.size / 5) {
+                this.v[i].x = (this.v[i].x + this.v[i - 1].x) / 2;
+                this.v[i].y = (this.v[i].y + this.v[i - 1].y) / 2;
                 this.v[i].x = (this.v[i].x + this.v[i - 1].x) / 2;
                 this.v[i].y = (this.v[i].y + this.v[i - 1].y) / 2;
             }
