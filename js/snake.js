@@ -1,17 +1,16 @@
-var sn_im = new Image();
-sn_im.src = "images/head.png";
-
 var bd_im = new Image();
 bd_im.src = "images/body.png";
 
 class snake{
-    constructor(game) {
+    constructor(game, score,x , y) {
         this.game = game;
+        this.score = score;
+        this.x = x;
+        this.y = y;
         this.init();
     }
 
     init() {
-        this.score = 500;
         this.speed = 1;
         this.size = this.game.getSize() * 1;
         this.angle = 0;
@@ -19,7 +18,9 @@ class snake{
         this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
         this.v = [];
         for (let i = 0; i < 50; i++) 
-            this.v[i] = {x : game_W / 2, y : game_H / 2};
+            this.v[i] = {x : this.x, y : this.y};
+        this.sn_im = new Image();
+        this.sn_im.src = "images/head.png";
     }
 
     update() {
@@ -35,6 +36,7 @@ class snake{
             }
         }
         this.angle = this.getAngle(this.dx, this.dy);
+        // console.log(this.angle);
         if (this.score < 500)
             return;
         if (this.speed == 2)
@@ -55,9 +57,9 @@ class snake{
             this.game.context.drawImage(bd_im,  this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
 
         this.game.context.save();
-        this.game.context.translate(game_W / 2, game_H / 2);
+        this.game.context.translate(this.v[0].x - XX, this.v[0].y - YY);
         this.game.context.rotate(this.angle - Math.PI / 2);
-        this.game.context.drawImage(sn_im,  -this.size / 2, - this.size / 2, this.size, this.size);
+        this.game.context.drawImage(this.sn_im,  -this.size / 2, - this.size / 2, this.size, this.size);
         this.game.context.restore();
     }
 
