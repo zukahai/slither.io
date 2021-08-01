@@ -11,7 +11,7 @@ class snake{
     }
 
     init() {
-        this.score = 1000;
+        this.score = 500;
         this.speed = 1;
         this.size = this.game.getSize() * 1;
         this.angle = 0;
@@ -27,12 +27,11 @@ class snake{
             this.score--;
         let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
         this.size = this.game.getSize() / 2 * csUp;
-        let N = 2 * Math.floor(50 * csUp);
-        console.log(this.v.length);
+        let N = 3 * Math.floor(50 * Math.pow((this.score) / 1000, 1 / 1));
         if (N > this.v.length) {
             this.v[this.v.length] = {x : this.v[this.v.length - 1].x, y : this.v[this.v.length - 1].y};
         } else
-            this.v.slice(N);
+            this.v = this.v.slice(0, N);
         
         this.v[0].x += this.dx * this.speed;
         this.v[0].y += this.dy * this.speed;
