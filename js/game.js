@@ -11,6 +11,7 @@ NFood = 2000;
 Nsnake = 20;
 sizeMap = 2000;
 index = 0;
+minScore = 200;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -30,8 +31,8 @@ class game {
         this.render();
 
         for (let i = 0; i < Nsnake; i++)
-            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 1000), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
-        mySnake[0] = new snake("HaiZuka", this, 500, game_W / 2, game_H / 2);
+            mySnake[i] = new snake(i, this, Math.floor(2 * minScore + Math.random() * 2 * minScore), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
+        mySnake[0] = new snake("HaiZuka", this, minScore, game_W / 2, game_H / 2);
         for (let i = 0; i < NFood; i++) {
             FOOD[i] = new food(this, this.getSize() / (10 + Math.random() * 10), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
         }
@@ -171,9 +172,9 @@ class game {
                                 index = 0;
                         }
                         if (i != 0)
-                            mySnake[i] = new snake(i, this, Math.floor((mySnake[0].score > 1500) ? mySnake[0].score / 3 : 500),  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake(i, this, Math.floor((mySnake[0].score > 1.5 * minScore) ? mySnake[0].score / 1.5 : minScore),  this.randomXY(XX), this.randomXY(YY));
                         else {
-                            mySnake[i] = new snake("HaiZuka", this, Math.floor(500 + Math.random() * 500),  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake("HaiZuka", this, minScore,  this.randomXY(XX), this.randomXY(YY));
                             XX = mySnake[0].v[0].x - game_W / 2;
                             YY = mySnake[0].v[0].y - game_H / 2;
                         }
@@ -211,7 +212,7 @@ class game {
     drawScore() {
         this.context.font = this.getSize() / 1.5 + 'px Arial Black';
         this.context.fillStyle = "#FF00CC";
-        this.context.fillText("Score: " + mySnake[0].score, this.getSize(), this.getSize());
+        this.context.fillText("Score: " + Math.floor(mySnake[0].score), this.getSize(), this.getSize());
     }
 
     clearScreen() {

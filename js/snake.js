@@ -32,13 +32,13 @@ class snake{
                 this.speed = 2;
             else
                 this.speed = 1;
+            if (this.time <= 0) {
+                this.time = Math.floor(20 + Math.random() * 100);
+                this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
+                this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
+            }
         }
         
-        if (this.time <= 0) {
-            this.time = Math.floor(20 + Math.random() * 100);
-            this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
-            this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
-        }
         this.v[0].x += this.dx * this.speed;
         this.v[0].y += this.dy * this.speed;
 
@@ -50,10 +50,10 @@ class snake{
                 this.v[i].y = (this.v[i].y + this.v[i - 1].y) / 2;
             }
         }
-        if (this.score < 500)
+        if (this.score < 200)
             return;
         if (this.speed == 2)
-            this.score -= 1;
+            this.score -= this.score / 2000;;
         let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
         this.size = this.game.getSize() / 2 * csUp;
         let N = 3 * Math.floor(50 * Math.pow((this.score) / 1000, 1 / 1));
