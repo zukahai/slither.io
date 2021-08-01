@@ -88,6 +88,16 @@ class game {
     update() {
         this.render();
         this.unFood();
+        this.changFood();
+        this.updateChXY();
+
+        mySnake[0].dx = chX;
+        mySnake[0].dy = chY;
+        XX += chX * mySnake[0].speed;
+        YY += chY * mySnake[0].speed;
+    }
+
+    updateChXY() {
         while (Math.abs(chY) * Math.abs(chY) + Math.abs(chX) * Math.abs(chX) > MaxSpeed * MaxSpeed && chY * chX != 0) {
             chX /= 1.1;
             chY /= 1.1;
@@ -107,16 +117,14 @@ class game {
             Yfocus = bg_im.height / 2 + 60;
         if (Yfocus > bg_im.height / 2 + 60)
             Yfocus = 0;
-        mySnake[0].dx = chX;
-        mySnake[0].dy = chY;
-        XX += chX * mySnake[0].speed;
-        YY += chY * mySnake[0].speed;
     }
 
     changFood() {
         for (let i = 0; i < FOOD.length; i++)
-            if ((mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y) > 5000)
-            FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000 + XX, (Math.random() - Math.random()) * 5000 + YY);
+            if ((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)) > 5000 * 5000) {
+                console.log((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)));
+                FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000 + mySnake[0].v[0].x, (Math.random() - Math.random()) * 5000 + mySnake[0].v[0].y);
+            }
     }
 
     unFood() {

@@ -23,16 +23,6 @@ class snake{
     }
 
     update() {
-        if (this.speed == 2)
-            this.score--;
-        let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
-        this.size = this.game.getSize() / 2 * csUp;
-        let N = 3 * Math.floor(50 * Math.pow((this.score) / 1000, 1 / 1));
-        if (N > this.v.length) {
-            this.v[this.v.length] = {x : this.v[this.v.length - 1].x, y : this.v[this.v.length - 1].y};
-        } else
-            this.v = this.v.slice(0, N);
-        
         this.v[0].x += this.dx * this.speed;
         this.v[0].y += this.dy * this.speed;
 
@@ -45,6 +35,17 @@ class snake{
             }
         }
         this.angle = this.getAngle(this.dx, this.dy);
+        if (this.score < 500)
+            return;
+        if (this.speed == 2)
+            this.score--;
+        let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
+        this.size = this.game.getSize() / 2 * csUp;
+        let N = 3 * Math.floor(50 * Math.pow((this.score) / 1000, 1 / 1));
+        if (N > this.v.length) {
+            this.v[this.v.length] = {x : this.v[this.v.length - 1].x, y : this.v[this.v.length - 1].y};
+        } else
+            this.v = this.v.slice(0, N);
     }
 
     draw() {
