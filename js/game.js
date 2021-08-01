@@ -97,6 +97,7 @@ class game {
         this.changeFood();
         this.changeSnake();
         this.updateChXY();
+        // this.checkDie();
 
         mySnake[0].dx = chX;
         mySnake[0].dy = chY;
@@ -156,6 +157,17 @@ class game {
             }
     }
 
+    checkDie() {
+        for (let i = 0; i < mySnake.length; i++)
+            for (let j = 0; j < mySnake.length; j++)
+                if (i != j) {
+                    let kt = true;
+                    for (let k = 0; k < mySnake[j].v.length; k++)
+                        if (this.range(mySnake[i].v[0].x, mySnake[i].v[0].y, mySnake[j].v[k].x, mySnake[j].v[k].y)) {
+                            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 1000), (Math.random() - Math.random()) * sizeMap + XX, (Math.random() - Math.random()) * sizeMap + YY);
+                        }
+                }
+    }
  
     render() {
         if (this.canvas.width != document.documentElement.clientWidth || this.canvas.height != document.documentElement.clientHeight) {
@@ -198,6 +210,10 @@ class game {
     getSize() {
         var area = game_W * game_H;
         return Math.sqrt(area / 300);
+    }
+
+    range(a, b, c, d) {
+        return Math.sqrt((a - c) * (a - c) + (b - d) * (b - d));
     }
 }
 
