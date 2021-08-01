@@ -7,9 +7,9 @@ MaxSpeed = 0;
 chX = chY = 0;
 mySnake = [];
 FOOD = [];
-NFood = 500;
+NFood = 1000;
 Nsnake = 20;
-sizeMap = 2000;
+sizeMap = 3000;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -29,7 +29,7 @@ class game {
         this.render();
 
         for (let i = 0; i < Nsnake; i++)
-            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 1000), (Math.random() - Math.random()) * 500, (Math.random() - Math.random()) * 500);
+            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 1000), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
         mySnake[0] = new snake("HaiZuka", this, 500, game_W / 2, game_H / 2);
         mySnake[0].time = 200000000;
         for (let i = 0; i < NFood; i++) {
@@ -94,7 +94,8 @@ class game {
     update() {
         this.render();
         this.unFood();
-        this.changFood();
+        this.changeFood();
+        this.changeSnake();
         this.updateChXY();
 
         mySnake[0].dx = chX;
@@ -125,11 +126,21 @@ class game {
             Yfocus = 0;
     }
 
-    changFood() {
+    changeFood() {
         for (let i = 0; i < FOOD.length; i++)
-            if ((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)) > sizeMap * sizeMap) {
-                // console.log((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)));
+            if (Math.sqrt((mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)) > sizeMap) {
                 FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * sizeMap + mySnake[0].v[0].x, (Math.random() - Math.random()) * sizeMap + mySnake[0].v[0].y);
+                // console.log(FOOD[i]);
+            }
+    }
+
+    changeSnake() {
+        for (let i = 0; i < mySnake.length; i++)
+            if (Math.sqrt((mySnake[0].v[0].x - mySnake[i].v[0].x) * (mySnake[0].v[0].x - mySnake[i].v[0].x ) + (mySnake[0].v[0].y - mySnake[i].v[0].y ) * (mySnake[0].v[0].y - mySnake[i].v[0].y)) > sizeMap) {
+                mySnake[i].v[0].x = (mySnake[0].v[0].x + mySnake[i].v[0].x) / 2;
+                mySnake[i].v[0].y = (mySnake[0].v[0].y + mySnake[i].v[0].y) / 2;
+                mySnake[i].v[0].x = (mySnake[0].v[0].x + mySnake[i].v[0].x) / 2;
+                mySnake[i].v[0].y = (mySnake[0].v[0].y + mySnake[i].v[0].y) / 2;
             }
     }
 
