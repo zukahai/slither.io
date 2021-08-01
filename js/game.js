@@ -127,7 +127,7 @@ class game {
     changFood() {
         for (let i = 0; i < FOOD.length; i++)
             if ((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)) > 5000 * 5000) {
-                console.log((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)));
+                // console.log((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)));
                 FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000 + mySnake[0].v[0].x, (Math.random() - Math.random()) * 5000 + mySnake[0].v[0].y);
             }
     }

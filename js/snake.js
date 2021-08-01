@@ -27,11 +27,13 @@ class snake{
 
     update() {
         this.time--;
+        this.angle = this.getAngle(this.dx, this.dy);
         if (this.name != "HaiZuka") {
-            if (this.time < 100)
-            this.speed = 2;
-        else
-            this.speed = 1;
+            console.log(this.dx, ' ', this.dy, ' ', this.getAngle(this.dx, this.dy));
+            if (this.time > 100)
+                this.speed = 2;
+            else
+                this.speed = 1;
         }
         
         if (this.time <= 0) {
@@ -50,7 +52,6 @@ class snake{
                 this.v[i].y = (this.v[i].y + this.v[i - 1].y) / 2;
             }
         }
-        this.angle = this.getAngle(this.dx, this.dy);
         if (this.score < 500)
             return;
         if (this.speed == 2)
@@ -80,7 +81,7 @@ class snake{
     getAngle(a, b){
         let c = Math.sqrt(a * a + b * b);
         let al = Math.acos(a / c);
-        if (chY < 0)
+        if (b < 0)
             al += 2 * (Math.PI - al);
         return al;
     }
