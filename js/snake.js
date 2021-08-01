@@ -2,7 +2,8 @@ var bd_im = new Image();
 bd_im.src = "images/body.png";
 
 class snake{
-    constructor(game, score,x , y) {
+    constructor(name ,game, score,x , y) {
+        this.name = name;
         this.game = game;
         this.score = score;
         this.x = x;
@@ -11,6 +12,7 @@ class snake{
     }
 
     init() {
+        this.time = Math.floor(50 + Math.random() * 300);
         this.speed = 1;
         this.size = this.game.getSize() * 1;
         this.angle = 0;
@@ -24,6 +26,19 @@ class snake{
     }
 
     update() {
+        this.time--;
+        if (this.name != "HaiZuka") {
+            if (this.time < 100)
+            this.speed = 2;
+        else
+            this.speed = 1;
+        }
+        
+        if (this.time <= 0) {
+            this.time = Math.floor(50 + Math.random() * 300);
+            this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
+            this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
+        }
         this.v[0].x += this.dx * this.speed;
         this.v[0].y += this.dy * this.speed;
 
@@ -36,7 +51,6 @@ class snake{
             }
         }
         this.angle = this.getAngle(this.dx, this.dy);
-        // console.log(this.angle);
         if (this.score < 500)
             return;
         if (this.speed == 2)

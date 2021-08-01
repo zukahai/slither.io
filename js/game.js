@@ -28,8 +28,9 @@ class game {
         this.render();
 
         for (let i = 0; i < Nsnake; i++)
-            mySnake[i] = new snake(this, Math.floor(500 + Math.random() * 30000), (Math.random() - Math.random()) * 500, (Math.random() - Math.random()) * 500);
-        mySnake[0] = new snake(this, 500, game_W / 2, game_H / 2);
+            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 30000), (Math.random() - Math.random()) * 500, (Math.random() - Math.random()) * 500);
+        mySnake[0] = new snake("HaiZuka", this, 500, game_W / 2, game_H / 2);
+        mySnake[0].time = 200000000;
         for (let i = 0; i < NFood; i++) {
             FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000, (Math.random() - Math.random()) * 5000);
             // FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), game_W / 2, game_H / 2);
