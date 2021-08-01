@@ -169,7 +169,7 @@ class game {
                                 index = 0;
                         }
                         if (i != 0)
-                            mySnake[i] = new snake(i, this, Math.floor(mySnake[i].score > 2000 ? mySnake[i].score / 4 : 500),  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake(i, this, Math.floor((mySnake[0].score > 1500) ? mySnake[0].score / 3 : 500),  this.randomXY(XX), this.randomXY(YY));
                         else {
                             mySnake[i] = new snake("HaiZuka", this, Math.floor(500 + Math.random() * 500),  this.randomXY(XX), this.randomXY(YY));
                             XX = mySnake[0].v[0].x - game_W / 2;
