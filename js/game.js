@@ -9,6 +9,7 @@ mySnake = [];
 FOOD = [];
 NFood = 500;
 Nsnake = 20;
+sizeMap = 2000;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -32,7 +33,7 @@ class game {
         mySnake[0] = new snake("HaiZuka", this, 500, game_W / 2, game_H / 2);
         mySnake[0].time = 200000000;
         for (let i = 0; i < NFood; i++) {
-            FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000, (Math.random() - Math.random()) * 5000);
+            FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
             // FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), game_W / 2, game_H / 2);
         }
         
@@ -126,9 +127,9 @@ class game {
 
     changFood() {
         for (let i = 0; i < FOOD.length; i++)
-            if ((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)) > 5000 * 5000) {
+            if ((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)) > sizeMap * sizeMap) {
                 // console.log((Math.sqrt(mySnake[0].v[0].x - FOOD[i].x) * (mySnake[0].v[0].x - FOOD[i].x) + (mySnake[0].v[0].y - FOOD[i].y) * (mySnake[0].v[0].y - FOOD[i].y)));
-                FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000 + mySnake[0].v[0].x, (Math.random() - Math.random()) * 5000 + mySnake[0].v[0].y);
+                FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * sizeMap + mySnake[0].v[0].x, (Math.random() - Math.random()) * sizeMap + mySnake[0].v[0].y);
             }
     }
 
