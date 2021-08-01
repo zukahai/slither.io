@@ -53,7 +53,7 @@ class snake{
         if (this.score < 500)
             return;
         if (this.speed == 2)
-            this.score -= 9;
+            this.score -= 1;
         let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
         this.size = this.game.getSize() / 2 * csUp;
         let N = 3 * Math.floor(50 * Math.pow((this.score) / 1000, 1 / 1));

@@ -102,6 +102,8 @@ class game {
         mySnake[0].dy = chY;
         XX += chX * mySnake[0].speed;
         YY += chY * mySnake[0].speed;
+        mySnake[0].v[0].x = XX + game_W / 2;
+        mySnake[0].v[0].y = YY + game_H / 2;
     }
 
     updateChXY() {
