@@ -6,6 +6,7 @@ SPEED = 1;
 MaxSpeed = 0;
 chX = chY = 0;
 mySnake = 0;
+FOOD = [];
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -25,6 +26,10 @@ class game {
         this.render();
 
         mySnake = new snake(this);
+        for (let i = 0; i < 500; i++) {
+            FOOD[i] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000, (Math.random() - Math.random()) * 5000);
+        }
+        
         this.loop();
 
         this.listenMouse();
@@ -125,6 +130,8 @@ class game {
 
     draw() {
         this.clearScreen();
+        for (let i = 0; i < FOOD.length; i++)
+            FOOD[i].draw();
         mySnake.draw();
     }
 
