@@ -12,7 +12,7 @@ class snake{
     }
 
     init() {
-        this.time = Math.floor(50 + Math.random() * 300);
+        this.time = Math.floor(20 + Math.random() * 100);
         this.speed = 1;
         this.size = this.game.getSize() * 1;
         this.angle = 0;
@@ -30,14 +30,14 @@ class snake{
         this.angle = this.getAngle(this.dx, this.dy);
         if (this.name != "HaiZuka") {
             console.log(this.dx, ' ', this.dy, ' ', this.getAngle(this.dx, this.dy));
-            if (this.time > 100)
+            if (this.time > 50)
                 this.speed = 2;
             else
                 this.speed = 1;
         }
         
         if (this.time <= 0) {
-            this.time = Math.floor(50 + Math.random() * 300);
+            this.time = Math.floor(20 + Math.random() * 100);
             this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
             this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
         }

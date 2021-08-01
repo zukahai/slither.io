@@ -8,7 +8,7 @@ chX = chY = 0;
 mySnake = [];
 FOOD = [];
 NFood = 500;
-Nsnake = 2;
+Nsnake = 20;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -28,7 +28,7 @@ class game {
         this.render();
 
         for (let i = 0; i < Nsnake; i++)
-            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 30000), (Math.random() - Math.random()) * 500, (Math.random() - Math.random()) * 500);
+            mySnake[i] = new snake(i, this, Math.floor(500 + Math.random() * 1000), (Math.random() - Math.random()) * 500, (Math.random() - Math.random()) * 500);
         mySnake[0] = new snake("HaiZuka", this, 500, game_W / 2, game_H / 2);
         mySnake[0].time = 200000000;
         for (let i = 0; i < NFood; i++) {
