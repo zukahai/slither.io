@@ -1,6 +1,3 @@
-var bd_im = new Image();
-bd_im.src = "images/body.png";
-
 class snake{
     constructor(name ,game, score,x , y) {
         this.name = name;
@@ -23,6 +20,8 @@ class snake{
             this.v[i] = {x : this.x, y : this.y};
         this.sn_im = new Image();
         this.sn_im.src = "images/head.png";
+        this.bd_im = new Image();
+        this.bd_im.src = "images/body/" + Math.floor(Math.random() * 999999) % 6 + ".png";
     }
 
     update() {
@@ -68,7 +67,7 @@ class snake{
         this.update();
 
         for (let i = this.v.length - 1; i >= 1; i--)
-            this.game.context.drawImage(bd_im,  this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
+            this.game.context.drawImage(this.bd_im,  this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
 
         this.game.context.save();
         this.game.context.translate(this.v[0].x - XX, this.v[0].y - YY);
