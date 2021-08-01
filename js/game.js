@@ -7,6 +7,7 @@ MaxSpeed = 0;
 chX = chY = 0;
 mySnake = 0;
 FOOD = [];
+score = 1000;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -85,6 +86,8 @@ class game {
     }
 
     update() {
+        if (mySnake.speed == 2)
+            score--;
         this.render();
         while (Math.abs(chY) * Math.abs(chY) + Math.abs(chX) * Math.abs(chX) > MaxSpeed * MaxSpeed && chY * chX != 0) {
             chX /= 1.1;
@@ -133,6 +136,13 @@ class game {
         for (let i = 0; i < FOOD.length; i++)
             FOOD[i].draw();
         mySnake.draw();
+        this.drawScore();
+    }
+
+    drawScore() {
+        this.context.font = this.getSize() / 1.5 + 'px Arial Black';
+        this.context.fillStyle = "#FF00CC";
+        this.context.fillText("Score: " + score, this.getSize(), this.getSize());
     }
 
     clearScreen() {
