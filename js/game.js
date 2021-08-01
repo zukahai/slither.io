@@ -118,9 +118,9 @@ class game {
             return;
         for (let i = 0; i < 1; i++)
             for (let j = 0; j < FOOD.length; j++) {
-                if ((mySnake[i].v[0].x - FOOD[j].x) * (mySnake[i].v[0].x - FOOD[j].x) + (mySnake[i].v[0].y - FOOD[j].y) * (mySnake[i].v[0].y - FOOD[j].y) < mySnake[i].size * mySnake[i].size) {
+                if ((mySnake[i].v[0].x - FOOD[j].x) * (mySnake[i].v[0].x - FOOD[j].x) + (mySnake[i].v[0].y - FOOD[j].y) * (mySnake[i].v[0].y - FOOD[j].y) < 2.5 * mySnake[i].size * mySnake[i].size) {
                     mySnake[i].score += Math.floor(FOOD[j].size * 5);
-                    FOOD[j] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * 5000, (Math.random() - Math.random()) * 5000);
+                    FOOD[j] = new food(this, this.getSize() / (2 + Math.random() * 4), (Math.random() - Math.random()) * game_W + mySnake[i].v[0].x, (Math.random() - Math.random()) * game_H + mySnake[i].v[0].y);
                 }
             }
     }
