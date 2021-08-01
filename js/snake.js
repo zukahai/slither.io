@@ -29,8 +29,7 @@ class snake{
         this.time--;
         this.angle = this.getAngle(this.dx, this.dy);
         if (this.name != "HaiZuka") {
-            console.log(this.dx, ' ', this.dy, ' ', this.getAngle(this.dx, this.dy));
-            if (this.time > 50)
+            if (this.time > 90)
                 this.speed = 2;
             else
                 this.speed = 1;

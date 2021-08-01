@@ -135,7 +135,7 @@ class game {
     unFood() {
         if (mySnake.length <= 0)
             return;
-        for (let i = 0; i < 1; i++)
+        for (let i = 0; i < mySnake.length; i++)
             for (let j = 0; j < FOOD.length; j++) {
                 if ((mySnake[i].v[0].x - FOOD[j].x) * (mySnake[i].v[0].x - FOOD[j].x) + (mySnake[i].v[0].y - FOOD[j].y) * (mySnake[i].v[0].y - FOOD[j].y) < 2.5 * mySnake[i].size * mySnake[i].size) {
                     mySnake[i].score += Math.floor(FOOD[j].size * 5);
