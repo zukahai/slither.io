@@ -2,6 +2,7 @@ class food{
     constructor(game, size, x, y) {
         this.game = game;
         this.size = size;
+        this.value = this.size;
         this.x = x;
         this.y = y;
         this.init();

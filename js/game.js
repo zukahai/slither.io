@@ -213,7 +213,7 @@ class game {
         for (let i = 0; i < mySnake.length; i++)
             for (let j = 0; j < FOOD.length; j++) {
                 if ((mySnake[i].v[0].x - FOOD[j].x) * (mySnake[i].v[0].x - FOOD[j].x) + (mySnake[i].v[0].y - FOOD[j].y) * (mySnake[i].v[0].y - FOOD[j].y) < 1.5 * mySnake[i].size * mySnake[i].size) {
-                    mySnake[i].score += Math.floor(FOOD[j].size);
+                    mySnake[i].score += Math.floor(FOOD[j].value);
                     FOOD[j] = new food(this, this.getSize() / (5 + Math.random() * 10), (Math.random() - Math.random()) * 5000 + XX, (Math.random() - Math.random()) * 5000 + YY);
                 }
             }
@@ -229,7 +229,8 @@ class game {
                             kt = false;
                     if (!kt) {
                         for (let k = 0; k < mySnake[i].v.length; k += 5) {
-                            FOOD[index++] = new food(this, this.getSize() / (3 + Math.random() * 2),  mySnake[i].v[k].x,  mySnake[i].v[k].y);
+                            FOOD[index] = new food(this, this.getSize() / (2 + Math.random() * 2),  mySnake[i].v[k].x,  mySnake[i].v[k].y);
+                            FOOD[index++].value = 0.9 * mySnake[i].score / (mySnake[i].v.length / 5);
                             if (index >= FOOD.length)
                                 index = 0;
                         }
