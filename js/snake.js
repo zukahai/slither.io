@@ -49,7 +49,7 @@ class snake{
                 }
                 if (minRange < Math.sqrt(game_W * game_W + game_H * game_H))
                     this.time = 0;
-                console.log(minRange);
+                // console.log(minRange);
 
                 while (Math.abs(this.dy) * Math.abs(this.dy) + Math.abs(this.dx) * Math.abs(this.dx) > MaxSpeed * MaxSpeed && this.dx * this.dy != 0) {
                     this.dx /= 1.1;
