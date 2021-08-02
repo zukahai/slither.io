@@ -4,7 +4,7 @@ var bg_im = new Image();
 bg_im.src = "images/Map2.png";
 SPEED = 1;
 MaxSpeed = 0;
-chX = chY = 0;
+chX = chY = 1;
 mySnake = [];
 FOOD = [];
 NFood = 2000;
@@ -234,7 +234,7 @@ class game {
                                 index = 0;
                         }
                         if (i != 0)
-                            mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.floor((mySnake[0].score > 1.5 * minScore) ? mySnake[0].score / 1.5 : minScore),  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.max(Math.floor((mySnake[0].score > 1.5 * minScore) ? mySnake[0].score / 1.5 : minScore), mySnake[i].score / 1.5),  this.randomXY(XX), this.randomXY(YY));
                         else {
                             mySnake[i] = new snake("HaiZuka", this, minScore,  this.randomXY(XX), this.randomXY(YY));
                             XX = mySnake[0].v[0].x - game_W / 2;

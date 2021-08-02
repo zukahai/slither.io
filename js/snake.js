@@ -1,5 +1,5 @@
 class snake{
-    constructor(name ,game, score,x , y) {
+    constructor(name ,game, score, x , y) {
         this.name = name;
         this.game = game;
         this.score = score;
