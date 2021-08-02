@@ -34,7 +34,7 @@ class game {
             mySnake[i] = new snake(i, this, Math.floor(2 * minScore + Math.random() * 2 * minScore), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
         mySnake[0] = new snake("HaiZuka", this, minScore, game_W / 2, game_H / 2);
         for (let i = 0; i < NFood; i++) {
-            FOOD[i] = new food(this, this.getSize() / (10 + Math.random() * 10), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
+            FOOD[i] = new food(this, this.getSize() / (7 + Math.random() * 10), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
         }
         
         this.loop();
@@ -210,9 +210,35 @@ class game {
     }
 
     drawScore() {
-        this.context.font = this.getSize() / 1.5 + 'px Arial Black';
-        this.context.fillStyle = "#FF00CC";
-        this.context.fillText("Score: " + Math.floor(mySnake[0].score), this.getSize() / 3, this.getSize());
+        let data = [];
+        for (let i = 0; i < mySnake.length; i++)
+            data[i] = mySnake[i];
+        for (let i = 0; i < data.length - 1; i++)
+            for (let j = i + 1; j < data.length; j++)
+                if (data[i].score < data[j].score) {
+                    let t = data[i];
+                    data[i] = data[j];
+                    data[j] = t;
+                }
+        let index = 0;
+        for (let i = 1; i < mySnake.length; i++)
+            if (data[i].name == "HaiZuka")
+                index = i;
+        this.context.font = this.getSize() / 4 + 'px Arial Black';
+        for (let i = 0; i < 10; i++) {
+            this.context.fillStyle = "#AA0000";
+            if (i == index)
+                this.context.fillStyle = "#CC99FF";
+            this.context.fillText("#" + (i + 1), 3 * game_W / 4, this.getSize() / 2 * (i + 1));
+            this.context.fillText(data[i].name, 3 * game_W / 4 + game_W / 12, this.getSize() / 2 * (i + 1));
+            this.context.fillText(Math.floor(data[i].score), 3 * game_W / 4 + game_W / 6, this.getSize() / 2 * (i + 1));
+        }
+        if (index > 9) {
+            this.context.fillStyle = "#CC99FF";
+            this.context.fillText("#" + (index + 1), 3 * game_W / 4, this.getSize() / 2 * (10 + 1));
+            this.context.fillText(data[index].name, 3 * game_W / 4 + game_W / 12, this.getSize() / 2 * (10 + 1));
+            this.context.fillText(Math.floor(data[index].score), 3 * game_W / 4 + game_W / 6, this.getSize() / 2 * (10 + 1));
+        }
     }
 
     clearScreen() {
