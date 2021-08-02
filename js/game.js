@@ -4,17 +4,18 @@ var bg_im = new Image();
 bg_im.src = "images/Map2.png";
 SPEED = 1;
 MaxSpeed = 0;
-chX = chY = 1;
+chX = chY = 0;
 mySnake = [];
 FOOD = [];
 NFood = 2000;
-Nsnake = 50;
+Nsnake = 20;
 sizeMap = 2000;
 index = 0;
 minScore = 200;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
+
 names = ["Ahmed Steinke",
     "Aubrey Brass",
     "Johanne Boothe",
@@ -101,6 +102,28 @@ class game {
         this.loop();
 
         this.listenMouse();
+        this.listenTouch();
+    }
+
+    listenTouch() {
+        document.addEventListener("touchmove", evt => {
+            var y = evt.touches[0].pageY;
+            var x = evt.touches[0].pageX;
+            chX = (x - game_W / 2) / 15;
+            chY = (y - game_H / 2) / 15;
+        })
+
+        document.addEventListener("touchstart", evt => {
+            var y = evt.touches[0].pageY;
+            var x = evt.touches[0].pageX;
+            chX = (x - game_W / 2) / 15;
+            chY = (y - game_H / 2) / 15;
+            mySnake[0].speed = 2;
+        })
+
+        document.addEventListener("touchend", evt => { 
+            mySnake[0].speed = 1;
+        })
     }
 
     listenMouse() {
@@ -113,11 +136,8 @@ class game {
         document.addEventListener("mousemove", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
-            // console.log(x, ' ', y);
-            if (Math.sqrt((x - game_W / 2) * (x - game_W / 2) + (y - game_H / 2) * (y - game_H / 2)) > this.getSize()) {
-                chX = (x - game_W / 2) / 15;
-                chY = (y - game_H / 2) / 15;
-            };
+            chX = (x - game_W / 2) / 15;
+            chY = (y - game_H / 2) / 15;
         })
 
         document.addEventListener("mouseup", evt => {
@@ -140,13 +160,9 @@ class game {
         this.changeSnake();
         this.updateChXY();
         this.checkDie();
-        // console.log(this.cosAlpha(1, 0, -1, 1))
-        // if (this.cosAlpha(mySnake[0].dx, mySnake[0].dy, chX, chY) > -0.5 && Math.sqrt((chX - mySnake[0].dx) * (chX - mySnake[0].dx) + (chY - mySnake[0].dy) * (chY - mySnake[0].dy) > this.getSize())) {
-        //     console.log(chX, ' ', chY, ' ', mySnake[0].dx, ' ', mySnake[0].dy);
-            mySnake[0].dx = chX;
-            mySnake[0].dy = chY;
-        // }
-        
+
+        mySnake[0].dx = chX;
+        mySnake[0].dy = chY;
         XX += chX * mySnake[0].speed;
         YY += chY * mySnake[0].speed;
         mySnake[0].v[0].x = XX + game_W / 2;
@@ -277,13 +293,13 @@ class game {
                 this.context.fillStyle = "#CC99FF";
             this.context.fillText("#" + (i + 1), 3 * game_W / 4, this.getSize() / 2 * (i + 1));
             this.context.fillText(data[i].name, 3 * game_W / 4 + game_W / 24, this.getSize() / 2 * (i + 1));
-            this.context.fillText(Math.floor(data[i].score), 3 * game_W / 4 + game_W / 5, this.getSize() / 2 * (i + 1));
+            this.context.fillText(Math.floor(data[i].score), 3 * game_W / 4 + game_W / 5.5, this.getSize() / 2 * (i + 1));
         }
         if (index > 9) {
             this.context.fillStyle = "#CC99FF";
             this.context.fillText("#" + (index + 1), 3 * game_W / 4, this.getSize() / 2 * (10 + 1));
             this.context.fillText(data[index].name, 3 * game_W / 4 + game_W / 24, this.getSize() / 2 * (10 + 1));
-            this.context.fillText(Math.floor(data[index].score), 3 * game_W / 4 + game_W / 5, this.getSize() / 2 * (10 + 1));
+            this.context.fillText(Math.floor(data[index].score), 3 * game_W / 4 + game_W / 5.5, this.getSize() / 2 * (10 + 1));
         }
     }
 
@@ -297,20 +313,16 @@ class game {
         return Math.sqrt(area / 300);
     }
 
+    range(a, b, c, d) {
+        return Math.sqrt((a - c) * (a - c) + (b - d) * (b - d));
+    }
+
     randomXY(n) {
         let ans = 0;
         while (Math.abs(ans) < 1) {
             ans = 3 * Math.random() - 3 * Math.random();
         }
         return ans * sizeMap + n;
-    }
-
-    cosAlpha(a, b, c, d) {
-        return (a * c + b * d) / (Math.sqrt(a * a + b * b) * Math.sqrt(c * c + d * d));
-    }
-
-    range(a, b, c, d) {
-        Math.sqrt((a - c) * (a - c) + (b - d) * (b - d));
     }
 }
 
