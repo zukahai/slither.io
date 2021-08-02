@@ -230,7 +230,7 @@ class game {
                     if (!kt) {
                         for (let k = 0; k < mySnake[i].v.length; k += 5) {
                             FOOD[index] = new food(this, this.getSize() / (2 + Math.random() * 2),  mySnake[i].v[k].x,  mySnake[i].v[k].y);
-                            FOOD[index++].value = 0.9 * mySnake[i].score / (mySnake[i].v.length / 5);
+                            FOOD[index++].value = 0.4 * mySnake[i].score / (mySnake[i].v.length / 5);
                             if (index >= FOOD.length)
                                 index = 0;
                         }
