@@ -4,17 +4,78 @@ var bg_im = new Image();
 bg_im.src = "images/Map2.png";
 SPEED = 1;
 MaxSpeed = 0;
-chX = chY = 0;
+chX = chY = 1;
 mySnake = [];
 FOOD = [];
 NFood = 2000;
-Nsnake = 20;
+Nsnake = 50;
 sizeMap = 2000;
 index = 0;
 minScore = 200;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
+names = ["Ahmed Steinke",
+    "Aubrey Brass",
+    "Johanne Boothe",
+    "Sunni Markland",
+    "Tifany Sugar",
+    "Latonya Tully",
+    "Bobette Huckaby",
+    "Daryl Nowicki",
+    "Lizeth Kremer",
+    "Chiquita Pitt",
+    "Christinia Siler",
+    "Rena Reep",
+    "Evan Mcknight",
+    "Sofia Freeland",
+    "Virgie Vaughns",
+    "Kit Polen",
+    "Emma Rutland",
+    "Queen Guertin",
+    "Cecily Pasquariello",
+    "Palmer Myer",
+    "Kera Quinton",
+    "Domonique Diebold",
+    "Henriette Sockwell",
+    "Adeline Pettway",
+    "Shu Osby",
+    "Shantay Wallner",
+    "Isaias Drewes",
+    "Lettie Gatz",
+    "Remona Maravilla",
+    "Jessenia Mick",
+    "Noelle Rickey",
+    "Lavon Revard",
+    "Shavonne Stogsdill",
+    "Hailey Razo",
+    "Bart Somerville",
+    "Hannah Masker",
+    "Frederica Farmer",
+    "Glennie Thorpe",
+    "Sherrell Arriaga",
+    "Lawanda Maines",
+    "Douglass Watts",
+    "Naida Grund",
+    "Branda Bussiere",
+    "Carmelo Savory",
+    "Gabriela Blanchette",
+    "Tran Huf",
+    "Antoinette Hinrichs",
+    "Deborah Primmer",
+    "Drusilla Mcvea",
+    "Charlsie Acy",
+    "Nadene Royce",
+    "Danette Touchet",
+    "Luana Endo",
+    "Elvina Hibbitts",
+    "Ludivina Dahle",
+    "Fabiola Mcwhirter",
+    "Isabella Mosier",
+    "Lon Lassiter",
+    "Laurence Hanning",
+    "Laurene Singleton"
+];
 
 class game {
     constructor() {
@@ -31,7 +92,7 @@ class game {
         this.render();
 
         for (let i = 0; i < Nsnake; i++)
-            mySnake[i] = new snake(i, this, Math.floor(2 * minScore + Math.random() * 2 * minScore), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
+            mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.floor(2 * minScore + Math.random() * 2 * minScore), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
         mySnake[0] = new snake("HaiZuka", this, minScore, game_W / 2, game_H / 2);
         for (let i = 0; i < NFood; i++) {
             FOOD[i] = new food(this, this.getSize() / (7 + Math.random() * 10), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
@@ -40,28 +101,6 @@ class game {
         this.loop();
 
         this.listenMouse();
-        this.listenTouch();
-    }
-
-    listenTouch() {
-        document.addEventListener("touchmove", evt => {
-            var y = evt.touches[0].pageY;
-            var x = evt.touches[0].pageX;
-            chX = (x - game_W / 2) / 15;
-            chY = (y - game_H / 2) / 15;
-        })
-
-        document.addEventListener("touchstart", evt => {
-            var y = evt.touches[0].pageY;
-            var x = evt.touches[0].pageX;
-            chX = (x - game_W / 2) / 15;
-            chY = (y - game_H / 2) / 15;
-            mySnake[0].speed = 2;
-        })
-
-        document.addEventListener("touchend", evt => { 
-            mySnake[0].speed = 1;
-        })
     }
 
     listenMouse() {
@@ -74,8 +113,11 @@ class game {
         document.addEventListener("mousemove", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
-            chX = (x - game_W / 2) / 15;
-            chY = (y - game_H / 2) / 15;
+            // console.log(x, ' ', y);
+            if (Math.sqrt((x - game_W / 2) * (x - game_W / 2) + (y - game_H / 2) * (y - game_H / 2)) > this.getSize()) {
+                chX = (x - game_W / 2) / 15;
+                chY = (y - game_H / 2) / 15;
+            };
         })
 
         document.addEventListener("mouseup", evt => {
@@ -98,9 +140,13 @@ class game {
         this.changeSnake();
         this.updateChXY();
         this.checkDie();
-
-        mySnake[0].dx = chX;
-        mySnake[0].dy = chY;
+        // console.log(this.cosAlpha(1, 0, -1, 1))
+        // if (this.cosAlpha(mySnake[0].dx, mySnake[0].dy, chX, chY) > -0.5 && Math.sqrt((chX - mySnake[0].dx) * (chX - mySnake[0].dx) + (chY - mySnake[0].dy) * (chY - mySnake[0].dy) > this.getSize())) {
+        //     console.log(chX, ' ', chY, ' ', mySnake[0].dx, ' ', mySnake[0].dy);
+            mySnake[0].dx = chX;
+            mySnake[0].dy = chY;
+        // }
+        
         XX += chX * mySnake[0].speed;
         YY += chY * mySnake[0].speed;
         mySnake[0].v[0].x = XX + game_W / 2;
@@ -172,7 +218,7 @@ class game {
                                 index = 0;
                         }
                         if (i != 0)
-                            mySnake[i] = new snake(i, this, Math.floor((mySnake[0].score > 1.5 * minScore) ? mySnake[0].score / 1.5 : minScore),  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.floor((mySnake[0].score > 1.5 * minScore) ? mySnake[0].score / 1.5 : minScore),  this.randomXY(XX), this.randomXY(YY));
                         else {
                             mySnake[i] = new snake("HaiZuka", this, minScore,  this.randomXY(XX), this.randomXY(YY));
                             XX = mySnake[0].v[0].x - game_W / 2;
@@ -230,14 +276,14 @@ class game {
             if (i == index)
                 this.context.fillStyle = "#CC99FF";
             this.context.fillText("#" + (i + 1), 3 * game_W / 4, this.getSize() / 2 * (i + 1));
-            this.context.fillText(data[i].name, 3 * game_W / 4 + game_W / 12, this.getSize() / 2 * (i + 1));
-            this.context.fillText(Math.floor(data[i].score), 3 * game_W / 4 + game_W / 6, this.getSize() / 2 * (i + 1));
+            this.context.fillText(data[i].name, 3 * game_W / 4 + game_W / 24, this.getSize() / 2 * (i + 1));
+            this.context.fillText(Math.floor(data[i].score), 3 * game_W / 4 + game_W / 5, this.getSize() / 2 * (i + 1));
         }
         if (index > 9) {
             this.context.fillStyle = "#CC99FF";
             this.context.fillText("#" + (index + 1), 3 * game_W / 4, this.getSize() / 2 * (10 + 1));
-            this.context.fillText(data[index].name, 3 * game_W / 4 + game_W / 12, this.getSize() / 2 * (10 + 1));
-            this.context.fillText(Math.floor(data[index].score), 3 * game_W / 4 + game_W / 6, this.getSize() / 2 * (10 + 1));
+            this.context.fillText(data[index].name, 3 * game_W / 4 + game_W / 24, this.getSize() / 2 * (10 + 1));
+            this.context.fillText(Math.floor(data[index].score), 3 * game_W / 4 + game_W / 5, this.getSize() / 2 * (10 + 1));
         }
     }
 
@@ -251,16 +297,20 @@ class game {
         return Math.sqrt(area / 300);
     }
 
-    range(a, b, c, d) {
-        return Math.sqrt((a - c) * (a - c) + (b - d) * (b - d));
-    }
-
     randomXY(n) {
         let ans = 0;
         while (Math.abs(ans) < 1) {
             ans = 3 * Math.random() - 3 * Math.random();
         }
         return ans * sizeMap + n;
+    }
+
+    cosAlpha(a, b, c, d) {
+        return (a * c + b * d) / (Math.sqrt(a * a + b * b) * Math.sqrt(c * c + d * d));
+    }
+
+    range(a, b, c, d) {
+        Math.sqrt((a - c) * (a - c) + (b - d) * (b - d));
     }
 }
 
