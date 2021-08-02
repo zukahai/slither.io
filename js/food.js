@@ -14,6 +14,7 @@ class food{
     }
 
     draw() {
-        this.game.context.drawImage(this.food_im,  this.x - this.size / 2 - XX, this.y - this.size / 2 - YY, this.size, this.size);
+        if (this.game.isPoint(this.x, this.y))
+            this.game.context.drawImage(this.food_im,  this.x - this.size / 2 - XX, this.y - this.size / 2 - YY, this.size, this.size);
     }
 }

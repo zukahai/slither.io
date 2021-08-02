@@ -68,7 +68,8 @@ class snake{
         this.update();
 
         for (let i = this.v.length - 1; i >= 1; i--)
-            this.game.context.drawImage(this.bd_im,  this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
+            if (this.game.isPoint(this.v[i].x, this.v[i].y))
+                this.game.context.drawImage(this.bd_im,  this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
 
         this.game.context.save();
         this.game.context.translate(this.v[0].x - XX, this.v[0].y - YY);

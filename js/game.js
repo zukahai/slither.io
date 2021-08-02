@@ -324,6 +324,18 @@ class game {
         }
         return ans * sizeMap + n;
     }
+
+    isPoint(x, y) {
+        if (x - XX < -3 * this.getSize())
+            return false;
+        if (y - YY < -3 * this.getSize())
+            return false;
+        if (x - XX > game_W + 3 * this.getSize())
+            return false;
+        if (y - YY > game_H + 3 * this.getSize())
+            return false;
+        return true;
+    }
 }
 
 var g = new game();
