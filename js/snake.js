@@ -37,6 +37,7 @@ class snake{
                 this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
                 this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
             }
+            this.score += 0.04;
         }
         
         this.v[0].x += this.dx * this.speed;
