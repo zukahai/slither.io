@@ -15,6 +15,7 @@ class snake{
         this.angle = 0;
         this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
         this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
+
         this.v = [];
         for (let i = 0; i < 50; i++) 
             this.v[i] = {x : this.x, y : this.y};
@@ -33,9 +34,31 @@ class snake{
             else
                 this.speed = 1;
             if (this.time <= 0) {
-                this.time = Math.floor(20 + Math.random() * 100);
+                this.time = Math.floor(10 + Math.random() * 20);
                 this.dx = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
                 this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
+
+                let minRange = Math.sqrt(game_W * game_W + game_H * game_H);
+
+                for (let i = 0; i < FOOD.length; i++) {
+                    if (FOOD[i].size > this.game.getSize() / 10 && this.range(this.v[0], FOOD[i]) < minRange) {
+                        minRange = this.range(this.v[0], FOOD[i]);
+                        this.dx = FOOD[i].x - this.v[0].x;
+                        this.dy = FOOD[i].y - this.v[0].y;
+                    }
+                }
+                if (minRange < Math.sqrt(game_W * game_W + game_H * game_H))
+                    this.time = 0;
+                console.log(minRange);
+
+                while (Math.abs(this.dy) * Math.abs(this.dy) + Math.abs(this.dx) * Math.abs(this.dx) > MaxSpeed * MaxSpeed && this.dx * this.dy != 0) {
+                    this.dx /= 1.1;
+                    this.dy /= 1.1;
+                }
+                while (Math.abs(this.dy) * Math.abs(this.dy) + Math.abs(this.dx) * Math.abs(this.dx) < MaxSpeed * MaxSpeed && this.dx * this.dy != 0) {
+                    this.dx *= 1.1;
+                    this.dy *= 1.1;
+                }
             }
             this.score += 0.3;
         }
