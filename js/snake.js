@@ -60,7 +60,7 @@ class snake{
                     this.dy *= 1.1;
                 }
             }
-            this.score += this.score / 1000;
+            this.score += this.score / 300;
         }
         
         this.v[0].x += this.dx * this.speed;
