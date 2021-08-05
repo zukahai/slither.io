@@ -1,5 +1,6 @@
-class snake{
-    constructor(name ,game, score, x , y) {
+Nball = 13;
+class snake {
+    constructor(name, game, score, x, y) {
         this.name = name;
         this.game = game;
         this.score = score;
@@ -17,12 +18,12 @@ class snake{
         this.dy = Math.random() * MaxSpeed - Math.random() * MaxSpeed;
 
         this.v = [];
-        for (let i = 0; i < 50; i++) 
-            this.v[i] = {x : this.x, y : this.y};
+        for (let i = 0; i < 50; i++)
+            this.v[i] = { x: this.x, y: this.y };
         this.sn_im = new Image();
         this.sn_im.src = "images/head.png";
         this.bd_im = new Image();
-        this.bd_im.src = "images/body/" + Math.floor(Math.random() * 999999) % 6 + ".png";
+        this.bd_im.src = "images/body/" + Math.floor(Math.random() * 999999) % Nball + ".png";
     }
 
     update() {
@@ -62,7 +63,7 @@ class snake{
             }
             this.score += this.score / 666;
         }
-        
+
         this.v[0].x += this.dx * this.speed;
         this.v[0].y += this.dy * this.speed;
 
@@ -78,11 +79,11 @@ class snake{
             return;
         if (this.speed == 2)
             this.score -= this.score / 2000;;
-        let csUp = Math.pow((this.score) / 1000, 1 / 5) ;
+        let csUp = Math.pow((this.score) / 1000, 1 / 5);
         this.size = this.game.getSize() / 2 * csUp;
         let N = 3 * Math.floor(50 * Math.pow((this.score) / 1000, 1 / 1));
         if (N > this.v.length) {
-            this.v[this.v.length] = {x : this.v[this.v.length - 1].x, y : this.v[this.v.length - 1].y};
+            this.v[this.v.length] = { x: this.v[this.v.length - 1].x, y: this.v[this.v.length - 1].y };
         } else
             this.v = this.v.slice(0, N);
     }
@@ -92,16 +93,16 @@ class snake{
 
         for (let i = this.v.length - 1; i >= 1; i--)
             if (this.game.isPoint(this.v[i].x, this.v[i].y))
-                this.game.context.drawImage(this.bd_im,  this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
+                this.game.context.drawImage(this.bd_im, this.v[i].x - XX - (this.size) / 2, this.v[i].y - YY - (this.size) / 2, this.size, this.size);
 
         this.game.context.save();
         this.game.context.translate(this.v[0].x - XX, this.v[0].y - YY);
         this.game.context.rotate(this.angle - Math.PI / 2);
-        this.game.context.drawImage(this.sn_im,  -this.size / 2, - this.size / 2, this.size, this.size);
+        this.game.context.drawImage(this.sn_im, -this.size / 2, -this.size / 2, this.size, this.size);
         this.game.context.restore();
     }
 
-    getAngle(a, b){
+    getAngle(a, b) {
         let c = Math.sqrt(a * a + b * b);
         let al = Math.acos(a / c);
         if (b < 0)
