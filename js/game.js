@@ -75,7 +75,7 @@ names = ["Ahmed Steinke",
     "Isabella Mosier",
     "Lon Lassiter",
     "Laurence Hanning",
-    "Laurene Singleton"
+    "NamZ Bede"
 ];
 
 class game {
@@ -98,7 +98,7 @@ class game {
         for (let i = 0; i < NFood; i++) {
             FOOD[i] = new food(this, this.getSize() / (7 + Math.random() * 10), (Math.random() - Math.random()) * sizeMap, (Math.random() - Math.random()) * sizeMap);
         }
-        
+
         this.loop();
 
         this.listenMouse();
@@ -121,7 +121,7 @@ class game {
             mySnake[0].speed = 2;
         })
 
-        document.addEventListener("touchend", evt => { 
+        document.addEventListener("touchend", evt => {
             mySnake[0].speed = 1;
         })
     }
@@ -201,7 +201,7 @@ class game {
 
     changeSnake() {
         for (let i = 0; i < mySnake.length; i++)
-            if (Math.sqrt((mySnake[0].v[0].x - mySnake[i].v[0].x) * (mySnake[0].v[0].x - mySnake[i].v[0].x ) + (mySnake[0].v[0].y - mySnake[i].v[0].y ) * (mySnake[0].v[0].y - mySnake[i].v[0].y)) > sizeMap) {
+            if (Math.sqrt((mySnake[0].v[0].x - mySnake[i].v[0].x) * (mySnake[0].v[0].x - mySnake[i].v[0].x) + (mySnake[0].v[0].y - mySnake[i].v[0].y) * (mySnake[0].v[0].y - mySnake[i].v[0].y)) > sizeMap) {
                 mySnake[i].v[0].x = (mySnake[0].v[0].x + mySnake[i].v[0].x) / 2;
                 mySnake[i].v[0].y = (mySnake[0].v[0].y + mySnake[i].v[0].y) / 2;
             }
@@ -229,22 +229,22 @@ class game {
                             kt = false;
                     if (!kt) {
                         for (let k = 0; k < mySnake[i].v.length; k += 5) {
-                            FOOD[index] = new food(this, this.getSize() / (2 + Math.random() * 2),  mySnake[i].v[k].x,  mySnake[i].v[k].y);
+                            FOOD[index] = new food(this, this.getSize() / (2 + Math.random() * 2), mySnake[i].v[k].x + Math.random() * mySnake[i].size / 2, mySnake[i].v[k].y + Math.random() * mySnake[i].size / 2);
                             FOOD[index++].value = 0.4 * mySnake[i].score / (mySnake[i].v.length / 5);
                             if (index >= FOOD.length)
                                 index = 0;
                         }
                         if (i != 0)
-                            mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.max(Math.floor((mySnake[0].score > 3 * minScore) ? mySnake[0].score / 3 : minScore), mySnake[i].score / 3),  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.max(Math.floor((mySnake[0].score > 10 * minScore) ? mySnake[0].score / 10 : minScore), mySnake[i].score / 10), this.randomXY(XX), this.randomXY(YY));
                         else {
-                            mySnake[i] = new snake("HaiZuka", this, minScore,  this.randomXY(XX), this.randomXY(YY));
+                            mySnake[i] = new snake("HaiZuka", this, minScore, this.randomXY(XX), this.randomXY(YY));
                             XX = mySnake[0].v[0].x - game_W / 2;
                             YY = mySnake[0].v[0].y - game_H / 2;
                         }
                     }
                 }
     }
- 
+
     render() {
         if (this.canvas.width != document.documentElement.clientWidth || this.canvas.height != document.documentElement.clientHeight) {
             this.canvas.width = document.documentElement.clientWidth;
