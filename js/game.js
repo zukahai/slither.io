@@ -12,6 +12,7 @@ Nsnake = 20;
 sizeMap = 2000;
 index = 0;
 minScore = 200;
+die = false;
 
 Xfocus = Yfocus = 0;
 XX = 0, YY = 0;
@@ -148,6 +149,8 @@ class game {
     }
 
     loop() {
+        if (die)
+            return;
         this.update();
         this.draw();
         setTimeout(() => this.loop(), 30);
@@ -237,9 +240,9 @@ class game {
                         if (i != 0)
                             mySnake[i] = new snake(names[Math.floor(Math.random() * 99999) % names.length], this, Math.max(Math.floor((mySnake[0].score > 10 * minScore) ? mySnake[0].score / 10 : minScore), mySnake[i].score / 10), this.randomXY(XX), this.randomXY(YY));
                         else {
-                            mySnake[i] = new snake("HaiZuka", this, minScore, this.randomXY(XX), this.randomXY(YY));
-                            XX = mySnake[0].v[0].x - game_W / 2;
-                            YY = mySnake[0].v[0].y - game_H / 2;
+                            window.alert("Your Score: " + Math.floor(mySnake[i].score));
+                            die = true;
+                            window.location.href = ".";
                         }
                     }
                 }
